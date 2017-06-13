@@ -27,11 +27,13 @@ OPENCV_INCLUDE_DIR = $(OPENCV_PATH)/include
 MINIGLOG_LIB_TYPE := STATIC
 MINI_GLOG_PATH = $(EXT_INSTALL_PATH)/miniglog
 
-#LOCAL_CFLAGS += -mfloat-abi=softfp -mfpu=neon
-#ifeq ($(TARGET_ARCH_ABI),armeabi-v7a)
-#	LOCAL_ARM_NEON := true
-#endif
-LOCAL_CFLAGS += -mfloat-abi=softfp
+LOCAL_CFLAGS += -mfloat-abi=softfp -mfpu=neon
+TARGET_ARCH_ABI := armeabi-v7a
+LOCAL_ARM_MODE := arm 
+
+ifeq ($(TARGET_ARCH_ABI),armeabi-v7a)
+	LOCAL_ARM_NEON := true
+endif
 
 include $(MINI_GLOG_PATH)/Android.mk
 

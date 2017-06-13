@@ -88,7 +88,13 @@ extern "C" {
   Java_com_tzutalin_dlib_FaceDet_##METHOD_NAME
 
 void JNIEXPORT
-    DLIB_FACE_JNI_METHOD(jniNativeClassInit)(JNIEnv* env, jclass _this) {}
+    DLIB_FACE_JNI_METHOD(jniNativeClassInit)(JNIEnv* env, jclass _this) {
+      #ifdef DLIB_HAVE_NEON
+        LOG(INFO) << "neon enabled";
+        #else
+        LOG(INFO) << "neon ont enabled";
+      #endif
+    }
 
 jobjectArray getDetectResult(JNIEnv* env, DetectorPtr faceDetector,
                              const int& size) {
@@ -120,6 +126,7 @@ JNIEXPORT jobjectArray JNICALL
     DLIB_FACE_JNI_METHOD(jniDetect)(JNIEnv* env, jobject thiz,
                                     jstring imgPath) {
   LOG(INFO) << "jniFaceDet";
+
   const char* img_path = env->GetStringUTFChars(imgPath, 0);
   DetectorPtr detPtr = getDetectorPtr(env, thiz);
   int size = detPtr->det(std::string(img_path));

@@ -94,6 +94,7 @@ def downloadPrebuiltOpencv(prefix='.', out_prefix='.', version='3.1.0'):
         if not os.path.exists(OPENCV_ARCHIVE):
             download_file(OPENCV_PREBUILT_URL)
 
+        print 'debug :'+OPENCV_ARCHIVE
         unzipFile(OPENCV_ARCHIVE)
         os.chdir(currDir)
 
